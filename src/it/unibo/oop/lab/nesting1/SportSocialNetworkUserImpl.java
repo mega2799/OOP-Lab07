@@ -14,15 +14,11 @@ import it.unibo.oop.lab.socialnetwork.User;
  * Represents a social network user along with the sports he/she likes to do or
  * to follow.
  * 
- * 1) Complete the definition of the nested static class Sport, featuring just a
- * field representing the sport name.
- * 
- * 2) Add the unimplemented methods.
- * 
  * @param <U>
  *            specific {@link User} type
  */
-public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUserImpl<U> {
+public class SportSocialNetworkUserImpl<U extends User> 
+	extends SocialNetworkUserImpl<U> {
 
     /**
      * Static {@link Sport} constant.
@@ -49,16 +45,13 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     public static final Sport BIKE;
 
-    /*
-     * TODO: initialize properly these sports
-     */
     static {
-        SOCCER = null;
-        F1 = null;
-        MOTOGP = null;
-        VOLLEY = null;
-        BASKET = null;
-        BIKE = null;
+        SOCCER = new SportSocialNetworkUserImpl.Sport("Soccer");
+        F1 = new SportSocialNetworkUserImpl.Sport("F1");
+        MOTOGP = new SportSocialNetworkUserImpl.Sport("MotoGp");
+        VOLLEY = new SportSocialNetworkUserImpl.Sport("Volley");
+        BASKET = new SportSocialNetworkUserImpl.Sport("Basket");
+        BIKE = new SportSocialNetworkUserImpl.Sport("Bike");
     }
 
     /**
@@ -77,7 +70,8 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      *            alias of the user, i.e. the way a user is identified on an
      *            application
      */
-    public SportSocialNetworkUserImpl(final String name, final String surname, final String user) {
+    public SportSocialNetworkUserImpl(final String name, 
+			final String surname, final String user) {
         this(name, surname, user, -1);
     }
 
@@ -94,7 +88,8 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      *            alias of the user, i.e. the way a user is identified on an
      *            application
      */
-    public SportSocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
+    public SportSocialNetworkUserImpl(final String name, final String surname, 
+			final String user, final int userAge) {
         super(name, surname, user, userAge);
         this.sports = new HashSet<>();
     }
@@ -112,9 +107,10 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * @param sport
      *            a sport followed/done by the user
      */
-    // TODO
     public void addSport(final Sport sport) {
-
+    	if(!this.sports.contains(sport)) {
+    		this.sports.add(sport);
+    	}
     }
 
     /**
@@ -124,27 +120,44 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      *            sport to use as an input
      * @return true if a user likes sport s
      */
-    // TODO
     public boolean hasSport(final Sport s) {
-        return false;
+        return this.sports.contains(s);
     }
 
-    /*
-     * TODO
+    /** Nested Class Sport 
      * 
-     * Complete the definition of this static inner class defining a Sport along
-     * with its bare name.
+     * used to identify the sport
+     * 
      */
     public static final class Sport {
-        /*
-         * TODO
-         * 
-         * Redefine equals so that two sports are equal only if they feature the
-         * very same name. Remember that you must also redefine hashCode()!
-         */
-        @Override
-        public boolean equals(final Object o) {
-            return false;
-        }
+    	
+    	private final String name;
+    	
+    	/**Constructor of the sport class
+    	 *
+    	 * @param name
+    	 *			  	the name of the sport
+    	 */
+        public Sport(final String name) {
+			super();
+			this.name = name;
+		}
+
+        public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((name == null) ? 0 : name.hashCode());
+			return result;
+		}
+
+		public boolean equals(Object obj) {
+			Sport other = (Sport) obj;
+			if (!name.equals(other.name)) {
+				return false;
+			}else if (obj.hashCode() != other.hashCode()) {
+				return false;
+			}
+			return true;
+		}
     }
 }
