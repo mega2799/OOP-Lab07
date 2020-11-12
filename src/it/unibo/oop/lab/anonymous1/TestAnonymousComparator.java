@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.anonymous1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUser;
@@ -42,10 +44,10 @@ public final class TestAnonymousComparator {
         }
         return true;
     }
-
+       
     /**
      * @param args
-     *            ignored
+     *            ignored as fuck
      */
     public static void main(final String... args) {
         /*
@@ -63,7 +65,7 @@ public final class TestAnonymousComparator {
         dwashington.addFollowedUser("colleagues", kbacon);
         dwashington.addFollowedUser("writers", mgladwell);
         dwashington.addFollowedUser("writers", ntaleb);
-        final List<User> denzelUsers = dwashington.getFollowedUsers();
+        final List<User> denzelUsers = dwashington.getFollowedUsers();        
         /*
          * Order denzel's followed users incrementally by age:
          * 
@@ -74,6 +76,21 @@ public final class TestAnonymousComparator {
          * 
          * REFER TO LESSON 13-Advanced-Mechanisms.pdf, slide 41
          */
+        /**
+         * A look on how to sort incrementally the Users 
+         * 
+         * @param 
+         * List<User>, @Comparator
+         * @method 
+         * Compare( @User, @User) 
+         * @return 
+         * @Integer that is used to order the @User incrementally by age
+         */
+        Collections.sort(denzelUsers, new Comparator<User>(){
+        	public int compare(User arg0, User arg1) {
+				return arg0.getAge() - arg1.getAge();
+			}
+        });
         // TODO
         /*
          * expected Result
@@ -105,6 +122,21 @@ public final class TestAnonymousComparator {
          * NOTE: in order to sort a list think about a method of the utility
          * class Collections
          */
+        /**
+         * A look on how to sort decrementally the Users 
+         * 
+         * @param 
+         * List<User>, @Comparator
+         * @method 
+         * Compare( @User, @User) 
+         * @return 
+         * @Integer that is used to order the @User decrementally by age
+         */
+        Collections.sort(rossiUsers, new Comparator<User>(){
+			public int compare(User arg0, User arg1) {
+				return arg1.getAge() - arg0.getAge();
+			}
+        });
         // TODO
         /*
          * expected Result
